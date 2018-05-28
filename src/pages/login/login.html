@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ATM Project</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="myForm" (ngSubmit)="doLogin()">
+    <ion-list>
+      
+        <ion-item>
+          <ion-label floating>Account Number</ion-label>
+          <ion-input type="text" formControlName="accountNumber"></ion-input>
+        </ion-item>
+
+      <ion-item>
+        <ion-label floating>PIN Number</ion-label>
+        <ion-input type="password" formControlName="pinNumber"></ion-input>
+      </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button block type="submit" [disabled]="!myForm.valid">Login</button>
+  </div>
+
+  </form>
+</ion-content>

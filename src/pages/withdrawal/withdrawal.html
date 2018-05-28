@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Withdrawal</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <h3>Account: {{ accNum }}</h3>
+    <p>Available Balance {{ currentBalance | currency }}</p>
+      <form [formGroup]="withdrawalForm" (ngSubmit)="doWithdrawal(withdrawalForm)">
+  
+          <ion-input formControlName="amount" placeholder="Enter amount"></ion-input>
+           <button ion-button round type="submit">Perform Withdrawal</button>
+      </form>
+      <!-- <button (click)="dismissThis()" ion-button block>Close</button> -->
+  </ion-content>

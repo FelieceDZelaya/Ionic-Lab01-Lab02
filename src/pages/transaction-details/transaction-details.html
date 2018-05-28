@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Transaction Details for Account {{ transaction.accountNumber }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-label>Transaction Date</ion-label>
+    <ion-item>{{ transaction.dateOfTransaction | date }}</ion-item>
+
+    <ion-label>Transaction Type</ion-label>
+    <ion-item>{{ transaction.transactionType }}</ion-item>
+
+    <ion-label>Amount</ion-label>
+    <ion-item>{{ transaction.amount | currency }}</ion-item>
+
+  </ion-list>
+
+  <button (click)="dismissThis()" ion-button block>Close</button>
+
+</ion-content>
