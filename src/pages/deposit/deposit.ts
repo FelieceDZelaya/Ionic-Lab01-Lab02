@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 import { AtmserviceProvider } from '../../providers/atmservice/atmservice';
 import { AtmResponseOperation,AtmResponseOperationBalance } from '../../models/atm.interface';
@@ -13,7 +13,7 @@ export class DepositPage implements OnInit {
 
   public depositForm : FormGroup;
   accNum : string = '';
-  amount : number = 0;
+  amount : number;
 
   public currentBalance     : number = 0;
   public atmResponse        : AtmResponseOperation = <AtmResponseOperation>{}; 
@@ -21,7 +21,8 @@ export class DepositPage implements OnInit {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
-              public atmService : AtmserviceProvider) {
+              public atmService : AtmserviceProvider,
+              public alertCtrl: AlertController) {
     this.accNum = navParams.get("acc");
   }
 
@@ -44,7 +45,11 @@ export class DepositPage implements OnInit {
 
     this.amount =  theForm.value.amount;
     this.makeADeposit(this.atmService.getAccountNumber(),this.amount); 
-    this.navCtrl.pop();  
+    this.alertCtrl.create({
+      title: "Success",
+      subTitle: "Deposit Successful",
+      buttons: [{ text : 'Ok' , handler : data => {this.navCtrl.pop()} }]
+    }).present();  
   }
 
 
@@ -60,9 +65,5 @@ export class DepositPage implements OnInit {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DepositPage');
   }
-
-  dismissThis() {
-    this.navCtrl.pop();
-  } 
 
 }

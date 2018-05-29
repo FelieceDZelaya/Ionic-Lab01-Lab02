@@ -61,13 +61,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WithdrawalPage = /** @class */ (function () {
-    function WithdrawalPage(navCtrl, navParams, atmService, toastCtrl) {
+    function WithdrawalPage(navCtrl, navParams, atmService, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.atmService = atmService;
-        this.toastCtrl = toastCtrl;
+        this.alertCtrl = alertCtrl;
         this.accNum = '';
-        this.amount = 0;
         this.currentBalance = 0;
         this.atmResponse = {};
         this.atmResponseBalance = {};
@@ -86,14 +85,22 @@ var WithdrawalPage = /** @class */ (function () {
         });
     };
     WithdrawalPage.prototype.doWithdrawal = function (theForm) {
+        var _this = this;
         this.amount = theForm.value.amount;
         if (this.amount < this.currentBalance) {
             this.makeAWithdraw(this.atmService.getAccountNumber(), this.amount);
-            this.navCtrl.pop();
+            this.alertCtrl.create({
+                title: "Success",
+                subTitle: "Withdrawal Successful",
+                buttons: [{ text: 'Ok', handler: function (data) { _this.navCtrl.pop(); } }]
+            }).present();
         }
         else {
-            var toast = this.toastCtrl.create({ message: 'Amount exceeds available balance', duration: 3000 });
-            toast.present();
+            this.alertCtrl.create({
+                title: "Error",
+                subTitle: "Insufficient Balance",
+                buttons: ['Ok']
+            }).present();
         }
     };
     WithdrawalPage.prototype.makeAWithdraw = function (acct, amount) {
@@ -106,17 +113,14 @@ var WithdrawalPage = /** @class */ (function () {
     WithdrawalPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad WithdrawalPage');
     };
-    WithdrawalPage.prototype.dismissThis = function () {
-        this.navCtrl.pop();
-    };
     WithdrawalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-withdrawal',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/withdrawal/withdrawal.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Withdrawal</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h3>Account: {{ accNum }}</h3>\n    <p>Available Balance {{ currentBalance | currency }}</p>\n      <form [formGroup]="withdrawalForm" (ngSubmit)="doWithdrawal(withdrawalForm)">\n  \n          <ion-input formControlName="amount" placeholder="Enter amount"></ion-input>\n           <button ion-button round type="submit">Perform Withdrawal</button>\n      </form>\n      <!-- <button (click)="dismissThis()" ion-button block>Close</button> -->\n  </ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/withdrawal/withdrawal.html"*/,
+            selector: 'page-withdrawal',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/withdrawal/withdrawal.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Withdrawal</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h3>Account: {{ accNum }}</h3>\n    <p>Available Balance {{ currentBalance | currency }}</p>\n      <form [formGroup]="withdrawalForm" (ngSubmit)="doWithdrawal(withdrawalForm)">\n          <ion-list>\n              <ion-item>\n                <ion-label floating>Enter amount</ion-label>\n                <ion-input type="text" formControlName="amount"></ion-input>\n              </ion-item>\n          </ion-list>\n          <button ion-button round type="submit" [disabled]="!withdrawalForm.valid">Perform Withdrawal</button>\n      </form>\n  </ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/withdrawal/withdrawal.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_3__providers_atmservice_atmservice__["a" /* AtmserviceProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], WithdrawalPage);
     return WithdrawalPage;
 }());

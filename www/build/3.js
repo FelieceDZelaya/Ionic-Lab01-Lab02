@@ -61,12 +61,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var DepositPage = /** @class */ (function () {
-    function DepositPage(navCtrl, navParams, atmService) {
+    function DepositPage(navCtrl, navParams, atmService, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.atmService = atmService;
+        this.alertCtrl = alertCtrl;
         this.accNum = '';
-        this.amount = 0;
         this.currentBalance = 0;
         this.atmResponse = {};
         this.atmResponseBalance = {};
@@ -85,9 +85,14 @@ var DepositPage = /** @class */ (function () {
         });
     };
     DepositPage.prototype.doDeposit = function (theForm) {
+        var _this = this;
         this.amount = theForm.value.amount;
         this.makeADeposit(this.atmService.getAccountNumber(), this.amount);
-        this.navCtrl.pop();
+        this.alertCtrl.create({
+            title: "Success",
+            subTitle: "Deposit Successful",
+            buttons: [{ text: 'Ok', handler: function (data) { _this.navCtrl.pop(); } }]
+        }).present();
     };
     DepositPage.prototype.makeADeposit = function (acct, amount) {
         var _this = this;
@@ -99,16 +104,14 @@ var DepositPage = /** @class */ (function () {
     DepositPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad DepositPage');
     };
-    DepositPage.prototype.dismissThis = function () {
-        this.navCtrl.pop();
-    };
     DepositPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-deposit',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/deposit/deposit.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Deposit</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h3>Account: {{ accNum }}</h3>\n    <p>Available Balance {{ currentBalance | currency }}</p>\n    <form [formGroup]="depositForm" (ngSubmit)="doDeposit(depositForm)">\n\n        <ion-input formControlName="amount" placeholder="Enter amount"></ion-input>\n         <button ion-button round type="submit">Perform Deposit</button>\n    </form>\n    <!-- <button (click)="dismissThis()" ion-button block>Close</button> -->\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/deposit/deposit.html"*/,
+            selector: 'page-deposit',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/deposit/deposit.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Deposit</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h3>Account: {{ accNum }}</h3>\n    <p>Available Balance {{ currentBalance | currency }}</p>\n    <form [formGroup]="depositForm" (ngSubmit)="doDeposit(depositForm)">\n        <ion-list>\n            <ion-item>\n              <ion-label floating>Enter amount</ion-label>\n              <ion-input type="text" formControlName="amount"></ion-input>\n            </ion-item>\n        </ion-list>\n        <button ion-button round type="submit" [disabled]="!depositForm.valid">Perform Deposit</button>\n    </form>\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/deposit/deposit.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_atmservice_atmservice__["a" /* AtmserviceProvider */]])
+            __WEBPACK_IMPORTED_MODULE_3__providers_atmservice_atmservice__["a" /* AtmserviceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], DepositPage);
     return DepositPage;
 }());

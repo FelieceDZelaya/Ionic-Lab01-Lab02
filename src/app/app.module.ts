@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
+import { TransactionsListingPage } from '../pages/transactions-listing/transactions-listing';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { AtmOperationsPage } from '../pages/atm-operations/atm-operations';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,9 +17,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    TransactionsListingPage,
     ContactPage,
-    HomePage,
+    AtmOperationsPage,
     TabsPage
   ],
   imports: [
@@ -30,9 +30,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
   bootstrap: [IonicApp],
   entryComponents: [ //This tells the app to load these components
     MyApp,
-    AboutPage,
+    TransactionsListingPage,
     ContactPage,
-    HomePage,
+    AtmOperationsPage,
     TabsPage
   ],
   providers: [

@@ -77,7 +77,7 @@ var environment = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TransactionsListingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_atmservice_atmservice__ = __webpack_require__(34);
@@ -93,32 +93,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AboutPage = /** @class */ (function () {
-    function AboutPage(navCtrl, atmService) {
+var TransactionsListingPage = /** @class */ (function () {
+    function TransactionsListingPage(navCtrl, atmService) {
         this.navCtrl = navCtrl;
         this.atmService = atmService;
         this.transactions = [];
     }
-    AboutPage.prototype.ionViewWillEnter = function () {
+    TransactionsListingPage.prototype.ionViewWillEnter = function () {
         var _this = this;
         this.atmService.getLastOperations(this.atmService.getAccountNumber()).subscribe(function (data) {
             _this.transactions = data.transactions;
         });
     };
-    AboutPage.prototype.goToDetails = function (item) {
+    TransactionsListingPage.prototype.goToDetails = function (item) {
         this.navCtrl.push("TransactionDetailsPage", { item: item });
     };
-    AboutPage = __decorate([
+    TransactionsListingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Account Acitvity\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of transactions" (click)="goToDetails(item)">\n      \n      {{ item.transactionType }} -- {{ item.amount | currency }}\n\n    </button>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/about/about.html"*/
+            selector: 'page-transactions-listing',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/transactions-listing/transactions-listing.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Account Acitvity\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of transactions" (click)="goToDetails(item)">\n      \n      {{ item.transactionType }} -- {{ item.amount | currency }}\n\n    </button>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/transactions-listing/transactions-listing.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__providers_atmservice_atmservice__["a" /* AtmserviceProvider */]])
-    ], AboutPage);
-    return AboutPage;
+    ], TransactionsListingPage);
+    return TransactionsListingPage;
 }());
 
-//# sourceMappingURL=about.js.map
+//# sourceMappingURL=transactions-listing.js.map
 
 /***/ }),
 
@@ -167,7 +167,7 @@ var ContactPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AtmOperationsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_atmservice_atmservice__ = __webpack_require__(34);
@@ -183,46 +183,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, atmService) {
+var AtmOperationsPage = /** @class */ (function () {
+    function AtmOperationsPage(navCtrl, atmService) {
         this.navCtrl = navCtrl;
         this.atmService = atmService;
         this.currentBalance = 0;
         this.transactions = [];
     }
-    HomePage.prototype.ionViewCanEnter = function () {
+    AtmOperationsPage.prototype.ionViewCanEnter = function () {
         return this.atmService.accountValid;
     };
-    HomePage.prototype.ionViewWillEnter = function () {
+    AtmOperationsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
         this.atmService.getCurrentBalance(this.atmService.accountNumber).subscribe(function (resp) {
             _this.currentBalance = resp.currentBalance;
             _this.atmService.accountName = resp.accountName;
         });
     };
-    HomePage.prototype.getAccountName = function () {
+    AtmOperationsPage.prototype.getAccountName = function () {
         return this.atmService.accountName;
     };
-    HomePage.prototype.getAccountBalance = function () {
+    AtmOperationsPage.prototype.getAccountBalance = function () {
         return this.atmService.getCurrentBalance(this.atmService.accountNumber);
     };
-    HomePage.prototype.goToWithdrawal = function () {
+    AtmOperationsPage.prototype.goToWithdrawal = function () {
         this.navCtrl.push("WithdrawalPage", { acc: this.atmService.accountNumber });
     };
-    HomePage.prototype.goToDeposit = function () {
+    AtmOperationsPage.prototype.goToDeposit = function () {
         this.navCtrl.push("DepositPage", { acc: this.atmService.accountNumber });
     };
-    HomePage = __decorate([
+    AtmOperationsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome {{ getAccountName() }}</h2>\n  <p>\n    Curr Bal {{ currentBalance | currency }}\n  </p>\n\n  <div padding>\n    <button ion-button round color="secondary" (click)="goToWithdrawal()">Withdrawal</button>\n    <button ion-button round color="secondary" (click)="goToDeposit()">Deposit</button>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/home/home.html"*/
+            selector: 'page-atm-operations',template:/*ion-inline-start:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/atm-operations/atm-operations.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Operations</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome {{ getAccountName() }}</h2>\n  <p>\n    Curr Bal {{ currentBalance | currency }}\n  </p>\n\n  <div padding>\n    <button ion-button round color="secondary" (click)="goToWithdrawal()">Withdrawal</button>\n    <button ion-button round color="secondary" (click)="goToDeposit()">Deposit</button>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/Users/feliecedellonezelaya/Documents/BBLWebDevTraining2018/Ionic/Day2/myApp/src/pages/atm-operations/atm-operations.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__providers_atmservice_atmservice__["a" /* AtmserviceProvider */]])
-    ], HomePage);
-    return HomePage;
+    ], AtmOperationsPage);
+    return AtmOperationsPage;
 }());
 
-//# sourceMappingURL=home.js.map
+//# sourceMappingURL=atm-operations.js.map
 
 /***/ }),
 
@@ -232,9 +232,9 @@ var HomePage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_about__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transactions_listing_transactions_listing__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_contact__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__atm_operations_atm_operations__ = __webpack_require__(158);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -250,8 +250,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var TabsPage = /** @class */ (function () {
     function TabsPage() {
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__about_about__["a" /* AboutPage */];
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__atm_operations_atm_operations__["a" /* AtmOperationsPage */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__transactions_listing_transactions_listing__["a" /* TransactionsListingPage */];
         this.tab3Root = __WEBPACK_IMPORTED_MODULE_2__contact_contact__["a" /* ContactPage */];
     }
     TabsPage = __decorate([
@@ -289,9 +289,9 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_transactions_listing_transactions_listing__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_atm_operations_atm_operations__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(201);
@@ -324,9 +324,9 @@ var AppModule = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_4__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_4__pages_transactions_listing_transactions_listing__["a" /* TransactionsListingPage */],
                 __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__["a" /* ContactPage */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_atm_operations_atm_operations__["a" /* AtmOperationsPage */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */]
             ],
             imports: [
@@ -344,9 +344,9 @@ var AppModule = /** @class */ (function () {
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_4__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_4__pages_transactions_listing_transactions_listing__["a" /* TransactionsListingPage */],
                 __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__["a" /* ContactPage */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_atm_operations_atm_operations__["a" /* AtmOperationsPage */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */]
             ],
             providers: [

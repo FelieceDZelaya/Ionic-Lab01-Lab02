@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 import { AtmserviceProvider } from '../../providers/atmservice/atmservice';
 import { AtmResponseOperation,AtmResponseOperationBalance } from '../../models/atm.interface';
@@ -13,7 +13,7 @@ export class WithdrawalPage implements OnInit{
 
   public withdrawalForm : FormGroup;
   accNum : string = '';
-  amount : number = 0;
+  amount : number;
 
   public currentBalance     : number = 0;
   public atmResponse        : AtmResponseOperation = <AtmResponseOperation>{}; 
@@ -23,7 +23,7 @@ export class WithdrawalPage implements OnInit{
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public atmService : AtmserviceProvider,
-    public toastCtrl: ToastController) {
+    public alertCtrl: AlertController) {
       this.accNum = navParams.get("acc");
   }
 
@@ -46,11 +46,18 @@ export class WithdrawalPage implements OnInit{
 
     this.amount =  theForm.value.amount;
     if(this.amount < this.currentBalance){
-      this.makeAWithdraw(this.atmService.getAccountNumber(),this.amount);  
-      this.navCtrl.pop(); 
+      this.makeAWithdraw(this.atmService.getAccountNumber(),this.amount);
+      this.alertCtrl.create({
+        title: "Success",
+        subTitle: "Withdrawal Successful",
+        buttons: [{ text : 'Ok' , handler : data => {this.navCtrl.pop()} }]
+      }).present();  
     }else{
-      let toast = this.toastCtrl.create({ message: 'Amount exceeds available balance', duration: 3000 });
-      toast.present();
+      this.alertCtrl.create({
+        title: "Error",
+        subTitle: "Insufficient Balance",
+        buttons: ['Ok']
+      }).present();
     }
 
   }
@@ -67,9 +74,5 @@ export class WithdrawalPage implements OnInit{
   ionViewDidLoad() {
     console.log('ionViewDidLoad WithdrawalPage');
   }
-
-  dismissThis() {
-    this.navCtrl.pop();
-  } 
 
 }

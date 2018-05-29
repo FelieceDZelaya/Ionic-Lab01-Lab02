@@ -11,9 +11,12 @@
     <h3>Account: {{ accNum }}</h3>
     <p>Available Balance {{ currentBalance | currency }}</p>
     <form [formGroup]="depositForm" (ngSubmit)="doDeposit(depositForm)">
-
-        <ion-input formControlName="amount" placeholder="Enter amount"></ion-input>
-         <button ion-button round type="submit">Perform Deposit</button>
+        <ion-list>
+            <ion-item>
+              <ion-label floating>Enter amount</ion-label>
+              <ion-input type="text" formControlName="amount"></ion-input>
+            </ion-item>
+        </ion-list>
+        <button ion-button round type="submit" [disabled]="!depositForm.valid">Perform Deposit</button>
     </form>
-    <!-- <button (click)="dismissThis()" ion-button block>Close</button> -->
 </ion-content>
